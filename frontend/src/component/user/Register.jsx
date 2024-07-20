@@ -43,14 +43,24 @@ export default function Register() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", userData.name);
-    formData.append("email", userData.email);
-    formData.append("password", userData.password);
-    formData.append("avatar", avatar);
-    dispatch(registerAction(formData));
+    if (!!userData) {
+      toast("Please enter the required details", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        type: "error",
+        onOpen: () => {
+          dispatch(clearAuthError);
+        },
+      });
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("name", userData.name);
+      formData.append("email", userData.email);
+      formData.append("password", userData.password);
+      formData.append("avatar", avatar);
+      dispatch(registerAction(formData));
+    }
   };
-
   useEffect(() => {
     if (error) {
       toast(error, {
@@ -62,6 +72,8 @@ export default function Register() {
       });
       return;
     }
+
+    console.log(loading);
 
     if (isAuthenticated) {
       navigate("/");
@@ -144,7 +156,6 @@ export default function Register() {
               id="register_button"
               type="submit"
               className="btn btn-block py-3"
-              disabled={loading}
             >
               REGISTER
             </button>
