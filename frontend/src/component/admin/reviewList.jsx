@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { MDBDataTable } from "mdbreact";
 import Loader from "../layout/Loader";
 import SideBar from "./sidebar";
-import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { deleteReviewAction, getReviewAction } from "../actions/ProductAction";
 import { clearError, clearReviewDeleted } from "../Slices/ProductSlice";

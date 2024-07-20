@@ -12,20 +12,20 @@ export default function OrderDetails() {
   const {
     shippingInfo = {},
     user = {},
-    orderStatus = "Processing",
     orderItems = [],
     totalPrice = 0,
     paymentInfo = {},
   } = order;
-  const isPaid =
-    paymentInfo && paymentInfo.status === "succeeded" ? true : false;
+
+  // const isPaid =
+  //   paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(singleUserOrderAction(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <Fragment>

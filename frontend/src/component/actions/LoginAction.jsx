@@ -51,8 +51,10 @@ export const registerAction = (userdata) => async (dispatch) => {
     };
     const { data } = await axios.post(`/api/v1/register`, userdata, config);
     dispatch(registerSuccess(data));
+    localStorage.setItem("isAuth", true);
   } catch (error) {
     dispatch(registerFail(error.response.data.message));
+    localStorage.setItem("isAuth", false);
   }
 };
 export const loadUserAction = async (dispatch) => {
@@ -75,7 +77,6 @@ export const logoutAction = async (dispatch) => {
     localStorage.setItem("isAuth", true);
   }
 };
-
 
 export const updateProfileAction = (userdata) => async (dispatch) => {
   try {

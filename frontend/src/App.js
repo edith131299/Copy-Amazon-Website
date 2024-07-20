@@ -37,12 +37,9 @@ import UpdateOrder from "./component/admin/updateOrder";
 import UserList from "./component/admin/userList";
 import UpdateUser from "./component/admin/updateUser";
 import ReviewList from "./component/admin/reviewList";
-import { useSelector } from "react-redux";
 
 function App() {
   const [stripe, setStripe] = useState("");
-
-  const { loading } = useSelector((state) => state.authState);
 
   useEffect(() => {
     const auth = localStorage.getItem("isAuth");

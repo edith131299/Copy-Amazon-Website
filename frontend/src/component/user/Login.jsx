@@ -9,7 +9,7 @@ export default function Login() {
 
   const [password, setPassword] = useState("");
 
-  const { loading, error, isAuthenticated } = useSelector(
+  const {  error, isAuthenticated } = useSelector(
     (state) => state.authState
   );
 
@@ -42,7 +42,7 @@ export default function Login() {
     if (isAuthenticated) {
       navigate(redirect);
     }
-  }, [error, isAuthenticated, dispatch, navigate]);
+  }, [redirect,error, isAuthenticated, dispatch, navigate]);
 
   return (
     <Fragment>
