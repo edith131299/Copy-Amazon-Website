@@ -3,6 +3,7 @@ import Search from "../Search";
 import { useDispatch, useSelector } from "react-redux";
 import { Dropdown, Image } from "react-bootstrap";
 import { logoutAction } from "../actions/LoginAction";
+import { useEffect } from "react";
 
 export default function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.authState);
@@ -10,7 +11,9 @@ export default function Header() {
   const { items: cartItems } = useSelector((state) => state.cartState);
 
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
   const logoutHandler = () => {
     dispatch(logoutAction);
   };
@@ -80,7 +83,7 @@ export default function Header() {
           Cart
         </Link>
         <span className="ml-1" id="cart_count">
-          {cartItems.length}
+          {cartItems?.length}
         </span>
       </div>
     </nav>
