@@ -43,7 +43,7 @@ export default function Register() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!!userData) {
+    if (!(userData?.name && userData.email && userData.password && avatar)) {
       toast("Please enter the required details", {
         position: toast.POSITION.BOTTOM_CENTER,
         type: "error",
