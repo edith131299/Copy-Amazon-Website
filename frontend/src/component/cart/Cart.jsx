@@ -1,17 +1,25 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
+
 import Metadata from "../layout/Metadata";
+
 import {
   decreaseCartQuantity,
   increaseCartQuantity,
   removeItemFromCart,
 } from "../Slices/CartSlice";
+
 import { useDispatch } from "react-redux";
 
 export default function Cart() {
-  const { items } = useSelector((state) => state.cartState);
+  const { items } = useSelector((state) => state?.cartState);
+
+  console.log("cartItem", items);
 
   const dispatch = useDispatch();
 
@@ -34,27 +42,29 @@ export default function Cart() {
   };
 
   const Amount = () => {
-    const total = items.reduce(
+    const total = items?.reduce(
       (acc, item) => acc + item.quantity * item.price,
       0
     );
     return Number(total).toFixed(2);
   };
 
+  useEffect(() => {}, []);
+
   return (
     <>
       <Metadata title={"Cart"} />
       <div className="container container-fluid">
-        {items.length === 0 ? (
+        {items?.length === 0 ? (
           <h2 className="mt-5">Your Cart is empty</h2>
         ) : (
           <Fragment>
             <h2 className="mt-5">
-              Your Cart: <b>{items.length}</b>
+              Your Cart: <b>{items?.length}</b>
             </h2>
             <div className="row d-flex justify-content-between">
               <div className="col-12 col-lg-8">
-                {items.map((item, i) => (
+                {items?.map((item, i) => (
                   <Fragment key={i}>
                     <div className="cart-item">
                       <hr />
@@ -125,7 +135,7 @@ export default function Cart() {
                   <p>
                     Subtotal:{" "}
                     <span className="order-summary-values">
-                      {items.reduce((acc, item) => acc + item.quantity, 0)}
+                      {items?.reduce((acc, item) => acc + item.quantity, 0)}
                       (Units)
                     </span>
                   </p>

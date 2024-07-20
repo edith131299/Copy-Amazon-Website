@@ -1,5 +1,10 @@
 import axios from "axios";
-import { cartError, cartRequest, cartSuccess } from "../Slices/CartSlice";
+import {
+  cartError,
+  cartFail,
+  cartRequest,
+  cartSuccess,
+} from "../Slices/CartSlice";
 
 export const CartAction = (id, quantity) => async (dispatch) => {
   try {
@@ -17,5 +22,8 @@ export const CartAction = (id, quantity) => async (dispatch) => {
         quantity,
       })
     );
-  } catch (error) {}
+  } catch (error) {
+    console.log("cartAction-error", error);
+    dispatch(cartFail(error.response));
+  }
 };

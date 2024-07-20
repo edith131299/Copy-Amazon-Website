@@ -22,25 +22,37 @@ const CartSlice = createSlice({
         loading: true,
       };
     },
+
     cartSuccess(state, action) {
       const item = action.payload;
+      const itemIndex = state.items.findIndex(
+        (i) => i.product === item.product
+      );
 
-      const itemIsExist = state.items.find((i) => i.product === item.product);
-
-      if (itemIsExist) {
-        state = {
-          ...state,
-          loading: false,
-        };
+      if (itemIndex !== -1) {
+        // Update the quantity of the existing item
+        state.items[itemIndex].quantity = item.quantity;
       } else {
-        state = {
-          items: [...state.items, item],
-          loading: false,
-        };
-        localStorage.setItem("cartItems", JSON.stringify(state.items));
+        // Add new item to the cart
+        state.items.push(item);
       }
-      return state;
+
+      state.loading = false;
+
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+
+      return state; // No need to spread state again
     },
+
+    cartFail(state, action) {
+      console.log(action);
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    },
+
     increaseCartQuantity(state, action) {
       state.items = state.items.map((item) => {
         if (item.product === action.payload) {
@@ -98,6 +110,7 @@ const { actions, reducer } = CartSlice;
 export const {
   cartRequest,
   cartSuccess,
+  cartFail,
   increaseCartQuantity,
   decreaseCartQuantity,
   removeItemFromCart,
